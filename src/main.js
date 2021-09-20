@@ -1,20 +1,28 @@
 import { World } from "./world";
-import { ShapeCreator } from "./shape_creator";
 import { Robot } from "./robot";
+import Main from "./ui/Main.svelte";
 
 const world = new World({ update: animate })
-world.createOriginPoint();
 const robot = new Robot();
-world.add(robot.mesh)
+world.add(robot.mesh);
 
 
+// UI CONFIG
 
-window.addEventListener("click", (ev) => {
-    ev.preventDefault();
-    //robot.setBaseRotation(Math.PI / 2)
-})
+const ui = new Main({target: document.body, props: {
+    onChanged: uiChanges
+}});
 
+function uiChanges(baseObjetive, midObjetive, upObjetive){
+    robot.setBaseRotation(degToRad(baseObjetive));
+    robot.setMidArmRotation(degToRad(midObjetive));
+    robot.setUpArmRotation(degToRad(upObjetive));
+}
 
 function animate() {
     robot.update();
+}
+
+function degToRad(deg){
+    return deg * (Math.PI / 180.0);
 }

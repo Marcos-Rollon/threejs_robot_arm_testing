@@ -8,13 +8,13 @@ class ShapeCreator {
      * @param {Number} width 
      * @param {Number} height 
      * @param {Number} depth 
-     * @param {{color : number, withBorders: boolean, borderColor: number}} options 
+     * @param {{color : number, withBorders: boolean, borderColor: number, wireframe : boolean}} options 
      * @returns {THREE.Mesh}
      */
-    static createBox(x, y, z, width, height, depth, { color = 0xcacaca, withBorders = true, borderColor = 0x000000 } = {}) {
+    static createBox(x, y, z, width, height, depth, { color = 0xcacaca, withBorders = true, borderColor = 0x000000 , wireframe = false} = {}) {
         const mesh = new THREE.Group();
         const geometry = new THREE.BoxGeometry(width, height, depth);
-        const material = new THREE.MeshLambertMaterial({ color: color });
+        const material = new THREE.MeshLambertMaterial({ color, wireframe });
         const cube = new THREE.Mesh(geometry, material);
         mesh.add(cube);
         if (withBorders) {
@@ -84,10 +84,10 @@ class ShapeCreator {
         return mesh;
     }
 
-    static createCylinder(radiusTop, radiusBottom, height, { color = 0xffffff, radialSegments = 8, heightSegments = 1, withBorders = true, borderColor = 0x000000 }) {
+    static createCylinder(radiusTop, radiusBottom, height, { color = 0xffffff, radialSegments = 8, heightSegments = 1, withBorders = true, borderColor = 0x000000, wireframe = false } = {}) {
         const mesh = new THREE.Group();
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments, heightSegments);
-        const material = new THREE.MeshBasicMaterial({ color });
+        const material = new THREE.MeshBasicMaterial({ color, wireframe });
         const cylinder = new THREE.Mesh(geometry, material);
         mesh.add(cylinder)
         if (withBorders) {

@@ -9,6 +9,8 @@ import css from 'rollup-plugin-css-only';
 import { terser } from "rollup-plugin-terser";
 // To be able to use process.env in the browser
 import rollupPluginInjectProcessEnv from "rollup-plugin-inject-process-env";
+import svelte from "rollup-plugin-svelte";
+import preprocess from "svelte-preprocess";
 
 
 // Check with ENV var if we are building for production (aka npm run build)
@@ -47,6 +49,10 @@ export default {
         sourcemap: "inline"
     },
     plugins: [
+        svelte({
+            compilerOptions: { dev: !production},
+            preprocess : preprocess()
+        }),
         // Put the css output in a separate file
         css({ output: "bundle.css" }),
         // The two plugins to load ES6 modules

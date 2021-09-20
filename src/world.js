@@ -39,7 +39,8 @@ class World {
 
     _setupCamera() {
         const aspectRatio = window.innerHeight / window.innerWidth;
-        this._camera = new THREE.PerspectiveCamera(70, aspectRatio, 0.1, 1000);
+        this._camera = new THREE.PerspectiveCamera(90, aspectRatio, 0.1, 1000);
+        
         this._camera.position.set(10, 10, 10);
         this._camera.lookAt(0, 0, 0);
 
@@ -49,6 +50,7 @@ class World {
     _setupRenderer() {
         this._renderer = new THREE.WebGLRenderer({ antialias: true })
         this._renderer.setSize(window.innerWidth, window.innerHeight);
+        this._renderer.domElement.style.position = "absolute";
         document.body.appendChild(this._renderer.domElement);
         this._debug("Renderer setup done!")
     }
